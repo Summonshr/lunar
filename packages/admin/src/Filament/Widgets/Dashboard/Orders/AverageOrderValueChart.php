@@ -16,6 +16,11 @@ class AverageOrderValueChart extends ApexChartWidget
      */
     protected static ?string $chartId = 'averageOrderValue';
 
+    /**
+     * @var int | string | array<string, int | null>
+     */
+    protected int | string | array $columnStart = [];
+
     protected function getHeading(): ?string
     {
         return __('lunarpanel::widgets.dashboard.orders.average_order_value.heading');

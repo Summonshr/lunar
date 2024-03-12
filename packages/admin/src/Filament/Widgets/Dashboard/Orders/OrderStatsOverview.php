@@ -25,24 +25,29 @@ class OrderStatsOverview extends BaseWidget
             'monthOverflow' => false,
         ]);
 
-        $current30Days = $this->getOrderQuery(
-            from: $date->clone()->subDays(30),
-            to: $date->clone(),
-        );
-
         $previous30Days = $this->getOrderQuery(
-            from: $date->clone()->subDays(60),
-            to: $date->clone()->subDays(30),
+            from: $date->clone()->subDays(60)->endOfDay(),
+            to: $date->clone()->subDays(30)->startOfDay(),
         );
 
-        $current7Days = $this->getOrderQuery(
-            from: $date->clone()->subDays(7),
+        $current30Days = $this->getOrderQuery(
+            from: $date->clone()->subDays(30)->startOfDay(),
             to: $date->clone(),
         );
 
         $previous7Days = $this->getOrderQuery(
-            from: $date->clone()->subDays(14),
-            to: $date->clone()->subDays(7),
+            from: $date->clone()->subDays(14)->endOfDay(),
+            to: $date->clone()->subDays(7)->startOfDay(),
+        );
+
+        $current7Days = $this->getOrderQuery(
+            from: $date->clone()->subDays(7)->startOfDay(),
+            to: $date->clone(),
+        );
+
+        $yesterday = $this->getOrderQuery(
+            from: $date->clone()->subDay()->endOfDay(),
+            to: $date->clone()->subDay()->startOfDay(),
         );
 
         $today = $this->getOrderQuery(
@@ -50,10 +55,6 @@ class OrderStatsOverview extends BaseWidget
             to: $date->clone(),
         );
 
-        $yesterday = $this->getOrderQuery(
-            from: $date->clone()->subDay()->startOfDay(),
-            to: $date->clone()->subDay(),
-        );
 
         return [
             $this->getStatCount($today, $yesterday, 'stat_one'),
