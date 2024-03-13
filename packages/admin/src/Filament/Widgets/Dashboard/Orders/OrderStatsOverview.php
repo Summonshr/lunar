@@ -46,8 +46,8 @@ class OrderStatsOverview extends BaseWidget
         );
 
         $yesterday = $this->getOrderQuery(
-            from: $date->clone()->subDay()->endOfDay(),
-            to: $date->clone()->subDay()->startOfDay(),
+            from: $date->clone()->subDay()->startOfDay(),
+            to: $date->clone()->subDay()->endOfDay(),
         );
 
         $today = $this->getOrderQuery(
